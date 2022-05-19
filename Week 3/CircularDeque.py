@@ -1,54 +1,70 @@
 class MyCircularDeque:
 
     def __init__(self, k: int):
-        self.circularDeque = []
-        self.k = k
+        self.circularDeque = [None]*k
+        self.length = k
+        self.front = (k-1)%k
+        self.rear = 0
 
     def insertFront(self, value: int) -> bool:
-        if len(self.circularDeque) < self.k:
-            self.circularDeque = [value] + self.circularDeque
+        if self.circularDeque[self.front] == None:
+            self.circularDeque[self.front] = value
+            self.front = (self.front - 1) % self.length
             return True
         else:
             return False
 
     def insertLast(self, value: int) -> bool:
-        if len(self.circularDeque) < self.k:
-            self.circularDeque = se;f.circularDeque + [value]
+        if self.circularDeque[self.rear] == None:
+            self.circularDeque[self.rear] = value
+            self.rear = (self.rear + 1) % self.length
             return True
         else:
             return False
 
     def deleteFront(self) -> bool:
-        if len(self.circularDeque) > 0:
-            self.circularDeque.pop(0)
-            return True
-        else:
+        x = (self.front + 1) % self.length
+        if self.circularDeque[x] == None:
             return False
+        else:
+            self.circularDeque[x] = None
+            self.front = x
+            return True
 
     def deleteLast(self) -> bool:
-        if len(self.circularDeque) > 0:
-            self.circularDeque.pop()
+        x = (self.rear - 1) % self.length
+        if self.circularDeque[x] == None:
+            return False
+        else:
+            self.circularDeque[x] = None
+            self.rear = x
+            return True
+
+    def getFront(self) -> int:
+        x = (self.front + 1) % self.length
+        if self.circularDeque[x] == None:
+            return -1
+        else:
+            return self.circularDeque[x]
+
+    def getRear(self) -> int:
+        x = (self.rear - 1) % self.length
+        if self.circularDeque[x] == None:
+            return -1
+        else:
+            return self.circularDeque[x]
+
+    def isEmpty(self) -> bool:
+        if (self.rear - self.front) % self.length == 1 and self.circularDeque[(self.front + 1) % self.length] == None:
             return True
         else:
             return False
 
-    def getFront(self) -> int:
-        if len(self.circularDeque) > 0:
-            return self.circularDeque[0]
-        else:
-            return -1
-
-    def getRear(self) -> int:
-        if len(self.circularDeque) > 0:
-            return self.circularDeque[-1]
-        else:
-            return -1
-
-    def isEmpty(self) -> bool:
-        return len(self.circularDeque) == 0
-
     def isFull(self) -> bool:
-        return len(self.circularDeque) == self.k
+        if (self.rear - self.front) % self.length == 1 and self.circularDeque[(self.front - 1) % self.length] != None:
+            return True
+        else:
+            return False
 
 
 # Your MyCircularDeque object will be instantiated and called as such:
