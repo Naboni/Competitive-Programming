@@ -1,26 +1,35 @@
 class Solution:
-    def numberToWords(self, num: int, idx=0) -> str:
-        
-        if not num: return "Zero"
-        return self.getWords(num)
-        
-    def getWords(self, num):
-        units = 'One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen '
-        tens = 'Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety '
-        bosses = ['Thousand', 'Million', 'Billion', 'Trillion']
-        
-        s = ''
-        if not num: return s
-        
-        if num < 20:
-            return (units.split(' ')[num - 1]).strip()
-        
-        if num <= 99:
-            return (tens.split(' ')[num // 10 - 2] + ' ' + self.getWords(num%10)).strip()
-        
-        if num <= 999:
-            return (units.split(' ')[num // 100 - 1] + ' Hundred ' + self.getWords(num%100)).strip()
-        
-        for i, p in enumerate(bosses):
-            if 1000**(i+1) <= num < 1000**(i+2):
-                return (self.getWords(num//1000**(i+1)) + ' ' + p + ' ' + self.getWords(num%1000**(i+1))).strip()
+    def numberToWords(self, num: int) -> str:
+        if num==0:
+            return "Zero"
+        words = {
+            1:"One", 2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9: "Nine",
+            10:"Ten", 11:"Eleven", 12:"Twelve", 13:"Thirteen", 14:"Fourteen", 15:"Fifteen", 16:"Sixteen", 17:"Seventeen", 18:"Eighteen", 19:"Nineteen",
+            20:"Twenty", 30:"Thirty", 40:"Forty", 50:"Fifty", 60:"Sixty", 70:"Seventy", 80:"Eighty", 90:"Ninety",
+            100:"Hundred", 1000:"Thousand", 1000000:"Million", 1000000000:"Billion"
+        }
+        output = ""
+        result = self.change(num, words, output)
+        return " ".join(result.split())
+    
+    def change(self, num, words, output):
+        if num == 0:
+            return output
+        elif num < 20:
+            output += words[num]
+            return output
+        elif 20 <= num < 100:
+            output += words[(num//10)*10] + " " + self.change(num%10, words, output)
+            return output
+        elif 100 <= num < 1000:
+            output += words[num//100] + " " + words[100] + " " + self.change(num%100, words, output)
+            return output
+        elif 1000 <= num < 1000000:
+            output += self.change(num//1000, words, output) + " " + words[1000] + " " + self.change(num%1000, words, output)
+            return output
+        elif 1000000 <= num < 1000000000:
+            output += self.change(num//1000000, words, output) + " " + words[1000000] + " " + self.change(num%1000000, words, output)
+            return output
+        else:
+            output += self.change(num//1000000000, words, output) + " " + words[1000000000] + " " + self.change(num%1000000000, words, output)
+            return output
