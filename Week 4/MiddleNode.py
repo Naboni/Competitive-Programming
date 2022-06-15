@@ -10,3 +10,11 @@ class Solution:
             a.append(head)
             head = head.next
         return a[len(a)//2]
+
+    # another method, much quicker
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
