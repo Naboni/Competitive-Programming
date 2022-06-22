@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import math
 import os
 import random
@@ -12,13 +14,10 @@ import sys
 #
 
 def countingSort(arr):
-    counterArray = []
-    for i in range(100):
-        counterArray.append(0)
-    for i in arr:
-        counterArray[i]+=1
-    return counterArray
-
+    freq = [0] * 100
+    for num in arr:
+        freq[num] += 1
+    return freq
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
