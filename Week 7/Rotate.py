@@ -3,17 +3,26 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        k %= len(nums)
-        if k == 0:
-            return
-
-        step = len(nums) - k
-        left = 0
-        while left != len(nums) - 1 and k:
-            right = left + step
-            nums[left], nums[right] = nums[right], nums[left]
-            left += 1
-            if left + step > len(nums) - 1:
-                new_size = (right - left) + 1
-                k %= new_size
-                step -= k
+        # Approach 1 Time O(n) Space O(n)
+        n = len(nums)
+        a = [0]*n
+        for i in range(n):
+            a[(i+k)%n] = nums[i]
+        for i in range(n):
+            nums[i] = a[i]
+        
+        # Approach 2 Time O(n) Space O(n)
+        # n = len(nums)
+        # l, r = 0, n-1 
+        # k %= n
+        # while l<r:
+        #     nums[l], nums[r] = nums[r], nums[l]
+        #     l, r = l+1, r-1
+        # l, r = 0, k-1
+        # while l<r:
+        #     nums[l], nums[r] = nums[r], nums[l]
+        #     l, r = l+1, r-1
+        # l, r = k, n-1
+        # while l<r:
+        #     nums[l], nums[r] = nums[r], nums[l]
+        #     l, r = l+1, r-1

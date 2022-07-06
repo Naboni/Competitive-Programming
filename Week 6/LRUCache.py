@@ -1,52 +1,43 @@
-class Node:
-    def __init__(self, key, value):
-        self.key = key
-        self.value = value
-        self.prev = None
-        self.next = None
-
+class ListNode:
+    def __init__(self, key, val):
+        self.key, self.val = key, val
+        self.prev = self.next = None
+        
 class LRUCache:
+
     def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.hashMap = dict()
-        self.head = Node(0,0)
-        self.tail = Node(0,0)
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.cap = capacity
+        self.cache = {}
+        self.left = self.right = ListNode(0, 0)
+        self.left.next, self.right.prev = self.right, self.left
 
     def get(self, key: int) -> int:
-        if key not in self.hashMap:
-            return -1
+        if key in self.cache:
+            self.remove(self.cache[key])
+            self.insert(self.cache[key])
+            return self.cache[key].val
         else:
-            node = self.hashMap[key]
-            self.put(key,node.value)
-            return node.value
+            return -1
 
     def put(self, key: int, value: int) -> None:
-        if key in self.hashMap:
-            node = self.hashMap[key]
-            self.removeNodeFromList(node)
-            self.hashMap.pop(node.key)
-            
-        if len(self.hashMap)==self.capacity:
-            node = self.tail.prev
-            self.removeNodeFromList(node)
-            self.hashMap.pop(node.key)   
+        if key in self.cache:
+            self.remove(self.cache[key])
+        self.cache[key] = ListNode(key, value)
+        self.insert(self.cache[key])
+        if len(self.cache) > self.cap:
+            lru = self.left.next
+            self.remove(lru)
+            del self.cache[lru.key]
         
-        node = Node(key,value)
-        self.hashMap[key] = node
-        self.insertAtHead(node)
-    
-    def insertAtHead(self,node):
-        node.next = self.head.next
-        node.prev = self.head
-        node.next.prev = node
-        self.head.next = node
         
-    def removeNodeFromList(self, node):
-        node.prev.next = node.next
-        node.next.prev = node.prev
-
+    def insert(self, node: ListNode) -> None:
+        prev, nxt = self.right.prev, self.right
+        prev.next = nxt.prev = node
+        node.prev, node.next = prev, nxt
+        
+    def remove(self, node: ListNode) -> None:
+        prev, nxt = node.prev, node.next
+        prev.next, nxt.prev = nxt, prev
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
