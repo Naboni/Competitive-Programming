@@ -1,26 +1,26 @@
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        idxs = defaultdict(set)
-        words = set(wordList)
-        if endWord not in words:
+        words = set(wordList) # for lookup optimization O(1)
+        if endWord not in words: 
             return 0
-       
-        for i in wordList:
-            for idx, l in enumerate(i):
-                idxs[idx].add(l)
+        graph = defaultdict(set)
         
-        q = deque()
-        q.append((beginWord, 1))
-        seen = set()
-        seen.add(beginWord)
+        for word in wordList:
+            for ind, letter in enumerate(word):
+                graph[ind].add(letter)
+        
+        q = deque([(beginWord, 1)])
+        visited = set()
+        visited.add(beginWord)
+        
         while q:
-            w, s = q.popleft()
-            if w == endWord:
-                return s
-            for i in range(len(w)):
-                for j in idxs[i]:
-                    nw = w[:i] + j + w[i+1:]
-                    if nw in words and nw not in seen:
-                        q.append((nw, s + 1))
-                        seen.add(nw)
+            word, distance = q.popleft()
+            if word == endWord:
+                return distance
+            for i in range(len(word)):
+                for letter in graph[i]:
+                    newWord = word[:i] + letter + word[i+1:]
+                    if newWord in words and newWord not in visited:
+                        visited.add(newWord)
+                        q.append((newWord, distance+1))
         return 0
