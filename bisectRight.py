@@ -1,3 +1,4 @@
+# upper bound in c
 def bisectRight(arr, target):
     left, right = 0, len(arr)-1
     while left <= right:
@@ -7,6 +8,8 @@ def bisectRight(arr, target):
         else:
             right = mid - 1
     return left
-arr = list(map(int, input().split()))
-target = int(input())
-print(bisectRight(arr, target)) 
+t = int(input())
+for _ in range(t):
+    arr = list(map(int, input().split()))
+    target = int(input())
+    print(bisectRight(arr, target)) 
