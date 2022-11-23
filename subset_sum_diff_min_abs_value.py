@@ -2,6 +2,8 @@ arr = list(map(int, input().split()))
 n = len(arr)
 tot = sum(arr)
 memo = {}
+
+# TC: O(n*m*m)
 # def topdown(i, s1, s2):
 #     if i >= n: return abs(s1 - s2)
 #     if (i, s1, s2) in memo: return memo[(i, s1, s2)]
@@ -10,6 +12,7 @@ memo = {}
 
 # print(topdown(0, 0, 0))
 
+# TC: O(n*m)
 def topdown(i, s1):
     if i >= n: return abs((tot - s1) - s1)
     if (i, s1) in memo: return memo[(i, s1)]
