@@ -1,0 +1,1 @@
+{"name":"Local: bisect","url":"c:\\Users\\Bonny\\Documents\\GitHub\\Competitive-Programming\\bisect.py","tests":[{"id":1668401828501,"input":"5 7 7 8 8 10\n8","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Bonny\\Documents\\GitHub\\Competitive-Programming\\bisect.py","group":"local","local":true}

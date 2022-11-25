@@ -1,0 +1,1 @@
+{"name":"Local: max_val_robbery","url":"c:\\Users\\Bonny\\Documents\\GitHub\\Competitive-Programming\\max_val_robbery.py","tests":[{"id":1669211678649,"input":"3 2 5\n30 40 60\n6","output":"70"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Bonny\\Documents\\GitHub\\Competitive-Programming\\max_val_robbery.py","group":"local","local":true}

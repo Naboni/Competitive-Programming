@@ -1,14 +1,12 @@
-arr = [1,1,2,1]
-k = 2
-def rec(ind, summ, path):
-    if ind >= len(arr):
-        if summ == k:
-            return 1
-        return 0
-    path.append(arr[ind])
-    x = rec(ind+1, summ + arr[ind], path)
-    path.pop()
-    y = rec(ind+1, summ, path)
-    return x + y
+dp = [False]*n
+dp = [True] + dp
+for i in range(1, n + 1):
+    if dp[i - 1] and i + a[i - 1] <= n:
+        dp[i + a[i - 1]] = True
+    if i - a[i - 1] - 1 >= 0:
+        dp[i] |= dp[i - a[i - 1] - 1]
 
-print(rec(0, 0, []))
+if dp[-1]:
+    print('YES')
+else:
+    print('NO')
