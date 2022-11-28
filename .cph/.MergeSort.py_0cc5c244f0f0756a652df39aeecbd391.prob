@@ -1,0 +1,1 @@
+{"name":"Local: MergeSort","url":"c:\\Users\\Bonny\\Documents\\GitHub\\Competitive-Programming\\MergeSort.py","tests":[{"id":1669630723145,"input":"5\n9 5 30 34 3","output":"34 30 9 5 3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Bonny\\Documents\\GitHub\\Competitive-Programming\\MergeSort.py","group":"local","local":true}
