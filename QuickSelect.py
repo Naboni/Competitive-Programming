@@ -11,6 +11,6 @@ class QuickSelect:
         else:       return nums[p]
 
 qs = QuickSelect()
-arr = [3,2,1,5,6,4]
-k = 4
+arr = list(map(int, input().split()))
+k = int(input())
 print(qs.quickSelect(arr, 0, len(arr)-1, k))
