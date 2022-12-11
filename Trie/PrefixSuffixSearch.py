@@ -36,7 +36,7 @@ class WordFilter:
             self.forwardTrie.insert(i, word)
             self.backwardsTrie.insert(i, reversed(word))
 
-    def f(self, prefix: str, suffix: str) -> int:
+    def f(self, prefix: str, suffix: str) -> int:   
         if prefix + "-" + suffix not in self.searchResults.keys():
             prefixSearch = self.forwardTrie.startsWith(prefix)
             suffixSearch = self.backwardsTrie.startsWith(reversed(suffix))
