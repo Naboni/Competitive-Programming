@@ -79,5 +79,3 @@ class Solution(object):
         for i in bi_nums:
             res = max(t.xor(i,res),res)
         return int(res)
-        
-        
