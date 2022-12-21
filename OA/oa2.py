@@ -1,4 +1,6 @@
+from cmath import inf
 from collections import defaultdict
+from heapq import heappop, heappush
 
 
 n = int(input())
@@ -19,19 +21,36 @@ for _ in range(n):
 
 # print(result)
 
-mapp = defaultdict(int)
-for lamp in lamps:
-    left, right = lamp[0]-lamp[1], lamp[0]+lamp[1]+1
-    mapp[left] += 1
-    mapp[right] -= 1
+pq = []
+mini, maxi = inf, -inf
+for x, y in lamps:
+    heappush(pq, (x-y, 0))
+    heappush(pq, (x+y, 1))
 
-# print(mapp)
-frequency = count = 0
-lastkey = None
-for key in mapp:
-    if frequency == 1:
-        if lastkey == None: count += 1
-        else: count += key - lastkey
-    frequency += mapp[key]
-    lastkey = key
-print(count)
+lights = 0
+result = []
+prev = 0
+
+while pq:
+    v, t = heappop(pq)
+    if t == 0:
+        lights += 1
+    else:
+        lights -= 1
+        
+    if lights == 1:
+        if prev == 0:
+            result.append(v)
+        else:
+            result.append(v+1)
+    elif prev == 1:
+        if lights == 0:
+            result.append(v+1)
+        elif lights == 2:
+            result.append(v)
+    prev = lights
+
+ans = []
+for i in range(0, len(result), 2):
+    ans.extend(range(result[i], result[i+1]))
+print(ans)
