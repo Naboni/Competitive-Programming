@@ -42,6 +42,8 @@ class AutoCompleteSearch:
     def search(self, chars):
         ans = self.trie.autocomplete(chars)
         self.sentences[chars] += 1
+        if self.sentences[chars] == 1:
+            self.trie.add(chars)
         res = []
         for el in ans:
             res.append((self.sentences[el], el))
@@ -49,3 +51,6 @@ class AutoCompleteSearch:
 
 obj = AutoCompleteSearch({"i love you":5, "island": 3, "ironman": 2, "i love leetcode": 2, "babyies": 5})
 print(obj.search("i"))
+print(obj.search("i "))
+print(obj.search("i ad"))
+print(obj.search("i ad"))
