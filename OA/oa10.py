@@ -1,7 +1,7 @@
 width = 15
 userWidth = 5
 
-# messages = [[1, "Hello how r u"], [2, "good ty"], [2, "u"], [1, "me too bro"]]
+messages = [[1, "Hello how r u"], [2, "good ty"], [2, "u"], [1, "me too bro"]]
 # messages = [[1, "Hello how r u"], [2, "good ty"], [2, "u here me"], [1, "me too bro"]]
 
 closers = "+" + "*"*width + "+"
@@ -16,7 +16,7 @@ def solve(message):
         if curr + len(word) + 1 <= userWidth:
             row.append(word)
             curr += len(word) + 1
-        elif curr + len(word) + 1 > userWidth:
+        else:
             if side == 1:
                 aft = " " * (width-curr+1)
                 row.append(aft)
@@ -46,7 +46,8 @@ for item in messages:
     for el in n:
         ans.append(el)
 ans.append(closers)
-print(ans)
+for r in ans:
+    print(r)
 
 ['+***************+', 
 '|Hello            |', 
