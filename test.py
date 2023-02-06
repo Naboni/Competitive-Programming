@@ -1,17 +1,18 @@
 
-for _ in range(int(input())):
-  l=0
-  r=10**9
-  x=int(input())
-  a=list(map(int,input().split()))
-  for i in range(x-1):
-    y=a[i]
-    z=a[i+1]
-    if(y>z):
-      l=max(l,(z+y+1)//2)
-    elif(y<z):
-      r=min(r,(z+y)//2)
-  if(l<=r):
-    print(l)
-  else:
-    print(-1)
+
+n = int(input())
+arr = list(map(int, input().split()))
+
+prev = 0
+rest = 0
+
+for num in arr:
+  if num == prev or num == 0:
+    prev = 0
+    rest += 1
+  elif num < 3:
+    prev = num
+  elif prev:
+    prev = 3 - prev
+
+print(rest)
